@@ -8,17 +8,27 @@
   --colorStop-2: 15%;
   --colorStop-3: 85%;
   --colorStop-4: 97%;
+  --primary: #fe4d3e;
+  --color-listStop: 130px;
 }
 
 
-.detail {
+.detail-background {
   min-height: 100vh;
   background-image: linear-gradient(
     115deg,
     transparent var(--colorStop-1),
-    #fe4d3e var(--colorStop-1) var(--colorStop-2),
+    var(--primary) var(--colorStop-1) var(--colorStop-2),
     #fa7246 var(--colorStop-2) var(--colorStop-3),
-    #fe4d3e var(--colorStop-3) var(--colorStop-4),
+    var(--primary) var(--colorStop-3) var(--colorStop-4),
     transparent var(--colorStop-1)
+  );
+}
+
+.pokemon-list-background {
+  background-image: linear-gradient(
+    115deg,
+    var(--primary) var(--color-listStop),
+    transparent var(--color-listStop)
   );
 }
