@@ -2,7 +2,7 @@
 import { Pokemon } from "./components"
 
 // Types
-import { FetchListType } from "@/app/types"
+import { FetchListType } from "@/app/(base)/types"
 
 async function getData() {
   const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
@@ -22,6 +22,7 @@ export default async function Home() {
       {data.results.map((item, key) => (
         <Pokemon
           key={key}
+          id={key + 1}
           name={item.name}
           url={item.url}
         />
