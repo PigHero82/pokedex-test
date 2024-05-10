@@ -1,1 +1,1 @@
-export * from "./color_type"
+export * from "./type_option"

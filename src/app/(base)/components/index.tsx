@@ -1,2 +1,3 @@
-export * from "./Pokemon"
-export * from "./TypeButton"
+export * from "./actions"
+export * from "./displays"
+export * from "./views"

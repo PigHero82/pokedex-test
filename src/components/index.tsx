@@ -1,1 +1,1 @@
-export * from "./indicators"
+export * from "./views"

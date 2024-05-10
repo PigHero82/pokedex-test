@@ -1,5 +1,5 @@
 // Components
-import { Pokemon } from "./components"
+import { ListSection } from "./components"
 
 // Types
 import { FetchListType } from "@/app/(base)/types"
@@ -17,16 +17,5 @@ async function getData() {
 export default async function Home() {
   const data: FetchListType = await getData()
 
-  return (
-    <div className="flex flex-wrap justify-center gap-1">
-      {data.results.map((item, key) => (
-        <Pokemon
-          key={key}
-          id={key + 1}
-          name={item.name}
-          url={item.url}
-        />
-      ))}
-    </div>
-  )
+  return <ListSection data={data} />
 }

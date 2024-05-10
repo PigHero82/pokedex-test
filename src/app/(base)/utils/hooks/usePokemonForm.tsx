@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react"
 
 // Utils
-import { getApi } from "@/utils"
-import { color_type } from "../vars"
+import { color_type, getApi } from "@/utils"
 
 export function usePokemonForm(url: string) {
   // Hooks
@@ -37,7 +36,7 @@ export function usePokemonForm(url: string) {
 
           return {
             name,
-            color: color_type[name]
+            color: color_type[name].color
           }
         })
       })

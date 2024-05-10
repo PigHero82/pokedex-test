@@ -9,7 +9,8 @@
   --colorStop-3: 85%;
   --colorStop-4: 97%;
   --primary: #fe4d3e;
-  --color-listStop: 130px;
+  --list-colorStop: 130px;
+  --type-colorStop: 32px;
 }
 
 
@@ -28,7 +29,21 @@
 .pokemon-list-background {
   background-image: linear-gradient(
     115deg,
-    var(--primary) var(--color-listStop),
-    transparent var(--color-listStop)
+    var(--primary) var(--list-colorStop),
+    transparent var(--list-colorStop)
   );
+}
+
+.type-background {
+  background-image: linear-gradient(
+    115deg,
+    transparent var(--type-colorStop),
+    #5b5f63 var(--type-colorStop) 100%
+  );
+}
+
+@layer components {
+  .input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+  }
 }
