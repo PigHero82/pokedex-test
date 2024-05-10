@@ -1,8 +1,17 @@
-// Types
+// Next
 import Image from "next/image"
-import type { DetailType } from "./types"
-import { LocaleButton } from "./components"
-import { TriangleArrow } from "@/components"
+import Link from "next/link"
+
+// Components
+import { TypePokemon } from "@/components"
+import { LocaleButton, TriangleArrow, TypeCard } from "./components"
+
+// Types
+import type { DetailType } from "@/types"
+
+// Utils
+import { color_type, getHeight, getWeight } from "@/utils"
+import { locale_list } from "./utils"
 
 async function getData(id: string) {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -10,7 +19,7 @@ async function getData(id: string) {
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
- 
+
   return res.json()
 }
 
@@ -19,47 +28,11 @@ export default async function Detail(query: { params: { id: string } }) {
   const data: DetailType = await getData(query.params.id)
 
   // Vars
-  const locale_list = [
-    {
-      name: "chs",
-      is_active: false,
-    },
-    {
-      name: "cht",
-      is_active: false,
-    },
-    {
-      name: "eng",
-      is_active: true,
-    },
-    {
-      name: "fra",
-      is_active: false,
-    },
-    {
-      name: "ger",
-      is_active: false,
-    },
-    {
-      name: "ita",
-      is_active: false,
-    },
-    {
-      name: "jpn",
-      is_active: false,
-    },
-    {
-      name: "kor",
-      is_active: false,
-    },
-    {
-      name: "spa",
-      is_active: false,
-    },
-  ]
+  const effect = "Vivamus sit amet libero id tortor malesuada dapibus. Sed volutpat sed risus sit amet pulvinar. Donec ut metus non tellus finibus rhoncus quis a est. Donec nibh arcu, auctor vel imperdiet vel, ullamcorper consectetur enim. Cras lorem dolor, posuere sit amet tellus quis, vestibulum rhoncus magna. Proin et congue lectus. Vivamus augue lacus, commodo quis augue eu, aliquam finibus lectus."
+  const id = data.id
 
   return (
-    <div className="container pt-3 flex flex-col gap-3">
+    <div className="container py-3 flex flex-col gap-3">
       <div className="flex flex-wrap justify-end gap-2">
         {locale_list.map((item, key) => (
           <LocaleButton
@@ -71,15 +44,19 @@ export default async function Detail(query: { params: { id: string } }) {
         ))}
       </div>
 
-      <div className="flex justify-end gap-20">
-        <Image src={data.sprites.other.showdown.front_default} alt={data.name} height={300} width={300} />
+      <div className="flex md:flex-row flex-col md:justify-center items-center gap-20">
+        <Image unoptimized src={data.sprites.other.showdown.front_default} alt={data.name} height={300} width={300} />
 
-        <div className="flex justify-end items-center w-full max-w-[500px]">
+        <div className="w-full max-w-[500px]">
           <div className="flex flex-col w-full">
-            <TriangleArrow className="self-center size-6" />
+            <Link href={`/${id - 1}`} className="self-center">
+              <TriangleArrow className="size-6" />
+            </Link>
 
             <div className="flex">
-              <TriangleArrow className="self-center size-6 -rotate-90" />
+              <Link href={`/${id - 1}`} className="self-center">
+                <TriangleArrow className="size-6 -rotate-90" />
+              </Link>
 
               <section className="flex flex-col w-full">
                 <div className="flex items-center bg-black pokemon-list-background px-1 text-white text-lg font-bold">
@@ -93,10 +70,98 @@ export default async function Detail(query: { params: { id: string } }) {
                 </div>
               </section>
 
-              <TriangleArrow className="self-center size-6 rotate-90" />
+              <Link href={`/${id + 1}`} className="self-center">
+                <TriangleArrow className="size-6 rotate-90" />
+              </Link>
             </div>
 
-            <TriangleArrow className="self-center size-6 rotate-180" />
+            <Link href={`/${id + 1}`} className="self-center">
+              <TriangleArrow className="size-6 rotate-180" />
+            </Link>
+          </div>
+
+          <div className="flex flex-col text-lg gap-1 mx-8">
+            <TypeCard
+              brightness="darker"
+              textAlign="center"
+            >
+              Evolution Pokémon
+            </TypeCard>
+
+            <div className="grid grid-cols-2">
+              <TypeCard
+                brightness="darker"
+                textAlign="center"
+              >
+                Type
+              </TypeCard>
+
+              <TypeCard
+                brightness="lighter"
+                textAlign="left"
+              >
+                <div className="flex flex-wrap gap-1">
+                  {data.types.map((item, key) => (
+                    <TypePokemon
+                      key={key}
+                      color={color_type[item.type.name].color}
+                      image={color_type[item.type.name].image}
+                      name={item.type.name}
+                    />
+                  ))}
+                </div>
+              </TypeCard>
+
+              <TypeCard
+                brightness="darker"
+                textAlign="center"
+              >
+                Height
+              </TypeCard>
+
+              <TypeCard
+                brightness="lighter"
+                textAlign="left"
+              >
+                {getHeight(data.height)}
+              </TypeCard>
+
+              <TypeCard
+                brightness="darker"
+                textAlign="center"
+              >
+                Weight
+              </TypeCard>
+
+              <TypeCard
+                brightness="lighter"
+                textAlign="left"
+              >
+                {getWeight(data.weight)}
+              </TypeCard>
+
+              <TypeCard
+                brightness="darker"
+                textAlign="center"
+              >
+                Number Battled
+              </TypeCard>
+
+              <TypeCard
+                brightness="lighter"
+                textAlign="left"
+              >
+                0
+              </TypeCard>
+            </div>
+
+            <TypeCard
+              brightness="lighter"
+              textAlign="left"
+              clasName="py-5 px-3"
+            >
+              {effect}
+            </TypeCard>
           </div>
         </div>
       </div>
